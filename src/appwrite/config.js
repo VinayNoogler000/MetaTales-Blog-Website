@@ -41,6 +41,19 @@ export class Service{
             console.error("Appwrite/Cofig.js :: updatePost() :: error", err);
         }
     }
+
+    async deletePost(slug) {
+        try {
+            return await this.tablesDB.deleteRow({
+                databaseId: envConfig.appwriteDBId,
+                tableId: envConfig.appwriteCollectionId,
+                rowId: slug
+            });
+        }
+        catch(err) {
+            console.error("Appwrite/Cofig.js :: deletePost() :: error", err);
+        }
+    }
 }
 
 const service = new Service();

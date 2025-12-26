@@ -22,7 +22,6 @@ export class AuthService {
             });
 
             if (userAcc) {
-                // call another method
                 return this.login(email, password);
             }
             else return userAcc;
@@ -47,6 +46,17 @@ export class AuthService {
         }
     }
 
+    async getCurrUser() {
+        try {
+            return await this.account.get();
+        }
+        catch(err) {
+            console.error("Appwrite/Auth.js :: getCurrUser :: error", err);
+        }
+
+        // if unable to fetch account status, then return null (error handling)
+        return null;
+    }
 }
 
 const authService = new AuthService(); 

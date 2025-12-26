@@ -111,6 +111,20 @@ export class Service{
         }
         return false;
     }
+
+    async updateFile(fileId, name) {
+        try {
+            return await this.bucket.updateFile({
+                bucketId: envConfig.appwriteBucketId,
+                fileId: fileId,
+                name: name
+            });
+        }
+        catch(err) {
+            console.error("Appwrite/Cofig.js :: updateFile() :: error", err);
+        }
+        return false;
+    }
 }
 
 const service = new Service();

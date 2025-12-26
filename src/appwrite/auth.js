@@ -1,4 +1,4 @@
-import config from "../config";
+import envConfig from "../envConfig";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
@@ -7,12 +7,12 @@ export class AuthService {
 
     constructor() {
         this.client = new Client()
-            .setEndpoint(config.appwriteUrl)
-            .setProject(config.appwriteProjectId);
+            .setEndpoint(envConfig.appwriteUrl)
+            .setProject(envConfig.appwriteProjectId);
         this.account = new Account(this.client);
     }
 
-    async createAccount({email, password, name}) {
+    async createAccount({ email, password, name }) {
         try {
             const userAcc = await this.account.create({
                 userId: ID.unique(),
@@ -26,12 +26,12 @@ export class AuthService {
             }
             else return userAcc;
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/Auth.js :: createAccount() :: error", err);
         }
     }
 
-    async login({email, password}) {
+    async login({ email, password }) {
         try {
             const session = await this.account.createEmailPasswordSession({
                 email, password
@@ -39,7 +39,7 @@ export class AuthService {
 
             return session;
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/Auth.js :: login() :: error", err);
         }
     }
@@ -48,7 +48,7 @@ export class AuthService {
         try {
             return await this.account.get();
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/Auth.js :: getCurrUser() :: error", err);
         }
 
@@ -60,12 +60,12 @@ export class AuthService {
         try {
             await this.account.deleteSessions();
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/Auth.js :: logout() :: error", err);
         }
     }
 }
 
-const authService = new AuthService(); 
+const authService = new AuthService();
 
 export default authService;

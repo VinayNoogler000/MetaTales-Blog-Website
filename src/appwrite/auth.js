@@ -2,11 +2,11 @@ import envConfig from "../envConfig";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
-    client;
+    client = new Client();
     account;
 
     constructor() {
-        this.client = new Client()
+        this.client
             .setEndpoint(envConfig.appwriteUrl)
             .setProject(envConfig.appwriteProjectId);
         this.account = new Account(this.client);

@@ -24,7 +24,7 @@ export class Service{
             });
         }
         catch(err) {
-            console.error("Appwrite/Cofig.js :: createPost() :: error", err);
+            console.error("Appwrite/Config.js :: createPost() :: error", err);
         }
     }
 
@@ -38,7 +38,7 @@ export class Service{
             });
         }
         catch(err) {
-            console.error("Appwrite/Cofig.js :: updatePost() :: error", err);
+            console.error("Appwrite/Config.js :: updatePost() :: error", err);
         }
     }
 
@@ -52,8 +52,21 @@ export class Service{
             return true;
         }
         catch(err) {
-            console.error("Appwrite/Cofig.js :: deletePost() :: error", err);
+            console.error("Appwrite/Config.js :: deletePost() :: error", err);
             return false;
+        }
+    }
+
+    async getPost(slug) {
+        try {
+            return await this.tablesDB.getRow({
+                databaseId: envConfig.appwriteDBId,
+                tableId: envConfig.appwriteCollectionId,
+                rowId: slug
+            })
+        }
+        catch(err) {
+            console.error("Appwrite/Config.js :: getPost() :: error", err);
         }
     }
 }

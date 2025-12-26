@@ -67,8 +67,22 @@ export class Service{
         }
         catch(err) {
             console.error("Appwrite/Config.js :: getPost() :: error", err);
-            return false;
         }
+        return false;
+    }
+
+    async listPosts(queries = [Query.equal("status", "active")]) {
+        try {
+            return await this.tablesDB.listRows({
+                databaseId: envConfig.databaseId,
+                tableId: envConfig.appwriteCollectionId,
+                queries: queries
+            });
+        }
+        catch(err) {
+            console.error("Appwrite/Cofig.js :: listPosts() :: error", err);
+        }
+        return false;
     }
 }
 

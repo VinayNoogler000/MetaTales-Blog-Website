@@ -125,6 +125,13 @@ export class Service{
         }
         return false;
     }
+
+    getImagePreview(fileId) {
+        return this.bucket.getFilePreview({
+            bucketId: envConfig.appwriteBucketId,
+            fileId: fileId
+        });
+    }
 }
 
 const service = new Service();

@@ -1,3 +1,5 @@
+// This "auth.js" is a service responsible for Authentication of User: Creating Acc, Log-in, Log-out, and Getting User Acc status.
+
 import envConfig from "../envConfig";
 import { Client, Account, ID } from "appwrite";
 

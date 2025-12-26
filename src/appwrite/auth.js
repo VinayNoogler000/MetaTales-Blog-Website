@@ -27,8 +27,7 @@ export class AuthService {
             else return userAcc;
         }
         catch(err) {
-            console.log("Unable to Create Account: ");
-            throw err;
+            console.error("Appwrite/Auth.js :: createAccount() :: error", err);
         }
     }
 
@@ -41,8 +40,7 @@ export class AuthService {
             return session;
         }
         catch(err) {
-            console.log("Unable to Login: ");
-            throw err;
+            console.error("Appwrite/Auth.js :: login() :: error", err);
         }
     }
 
@@ -51,11 +49,20 @@ export class AuthService {
             return await this.account.get();
         }
         catch(err) {
-            console.error("Appwrite/Auth.js :: getCurrUser :: error", err);
+            console.error("Appwrite/Auth.js :: getCurrUser() :: error", err);
         }
 
         // if unable to fetch account status, then return null (error handling)
         return null;
+    }
+
+    async logout() {
+        try {
+            await this.account.deleteSessions();
+        }
+        catch(err) {
+            console.error("Appwrite/Auth.js :: logout() :: error", err);
+        }
     }
 }
 

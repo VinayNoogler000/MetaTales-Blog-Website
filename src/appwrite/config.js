@@ -44,14 +44,16 @@ export class Service{
 
     async deletePost(slug) {
         try {
-            return await this.tablesDB.deleteRow({
+            await this.tablesDB.deleteRow({
                 databaseId: envConfig.appwriteDBId,
                 tableId: envConfig.appwriteCollectionId,
                 rowId: slug
             });
+            return true;
         }
         catch(err) {
             console.error("Appwrite/Cofig.js :: deletePost() :: error", err);
+            return false;
         }
     }
 }

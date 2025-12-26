@@ -98,6 +98,19 @@ export class Service{
         }
         return false;
     }
+
+    async deleteFile(fileId) {
+        try {
+            return await this.bucket.deleteFile({
+                bucketId: envConfig.appwriteBucketId,
+                fileId: fileId
+            });
+        }
+        catch(err){
+            console.error("Appwrite/Cofig.js :: deleteFile() :: error", err);
+        }
+        return false;
+    }
 }
 
 const service = new Service();

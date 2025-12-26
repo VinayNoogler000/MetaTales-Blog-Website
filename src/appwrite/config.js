@@ -84,6 +84,20 @@ export class Service{
         }
         return false;
     }
+
+    async uploadFile(file) {
+        try {
+            return await this.bucket.createFile({
+                bucketId: envConfig.appwriteBucketId,
+                fileId: ID.unique(),
+                file: file
+            });
+        }
+        catch(err) {
+            console.error("Appwrite/Config.js :: uploadFile() :: error", err);
+        }
+        return false;
+    }
 }
 
 const service = new Service();

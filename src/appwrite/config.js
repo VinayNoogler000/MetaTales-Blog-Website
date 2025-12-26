@@ -27,6 +27,20 @@ export class Service{
             console.error("Appwrite/Cofig.js :: createPost() :: error", err);
         }
     }
+
+    async updatePost(slug, {title, content, featuredImage, status}) {
+        try {
+            return await this.tablesDB.updateRow({
+                databaseId: envConfig.appwriteDBId,
+                tableId: appwriteCollectionId,
+                rowId: slug,
+                data: {title, content, featuredImage, status}
+            });
+        }
+        catch(err) {
+            console.error("Appwrite/Cofig.js :: updatePost() :: error", err);
+        }
+    }
 }
 
 const service = new Service();

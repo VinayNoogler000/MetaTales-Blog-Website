@@ -67,6 +67,7 @@ export class Service{
         }
         catch(err) {
             console.error("Appwrite/Config.js :: getPost() :: error", err);
+            return false;
         }
     }
 }

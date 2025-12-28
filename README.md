@@ -11,3 +11,6 @@ Thanks a lot to my mentor [Sir. Hitesh Choudhary](https://github.com/hiteshchoud
 2. **Backend:** Appwrite (No-Code Backend)
 3. **External Libraries/APIs:** [TinyMCE (Rich Text Editor)](https://www.npmjs.com/package/@tinymce/tinymce-react), [HTML React Parser](https://www.npmjs.com/package/html-react-parser), [React Hook Form](https://react-hook-form.com/get-started)
 4. **Deployment:** Vercel (Frontend), Appwrite Cloud (Backend)
+
+## Todos:
+1. Add state and reducers for "post" and "image" services by using Redux Toolkit.

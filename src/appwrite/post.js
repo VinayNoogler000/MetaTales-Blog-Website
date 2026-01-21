@@ -24,7 +24,7 @@ export class PostService{
             });
         }
         catch(err) {
-            console.error("Appwrite/Config.js :: createPost() :: error", err);
+            console.error("Appwrite/post.js :: createPost() :: error", err);
         }
     }
 
@@ -38,7 +38,7 @@ export class PostService{
             });
         }
         catch(err) {
-            console.error("Appwrite/Config.js :: updatePost() :: error", err);
+            console.error("Appwrite/post.js :: updatePost() :: error", err);
         }
     }
 
@@ -52,7 +52,7 @@ export class PostService{
             return true;
         }
         catch(err) {
-            console.error("Appwrite/Config.js :: deletePost() :: error", err);
+            console.error("Appwrite/post.js :: deletePost() :: error", err);
             return false;
         }
     }
@@ -66,7 +66,7 @@ export class PostService{
             })
         }
         catch(err) {
-            console.error("Appwrite/Config.js :: getPost() :: error", err);
+            console.error("Appwrite/post.js :: getPost() :: error", err);
         }
         return false;
     }
@@ -80,7 +80,7 @@ export class PostService{
             });
         }
         catch(err) {
-            console.error("Appwrite/Cofig.js :: listPosts() :: error", err);
+            console.error("Appwrite/post.js :: listPosts() :: error", err);
         }
         return false;
     }

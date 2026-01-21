@@ -23,7 +23,7 @@ export class ImageService{
             });
         }
         catch(err) {
-            console.error("Appwrite/Config.js :: uploadFile() :: error", err);
+            console.error("Appwrite/Image.js :: uploadFile() :: error", err);
         }
         return false;
     }
@@ -36,7 +36,7 @@ export class ImageService{
             });
         }
         catch(err){
-            console.error("Appwrite/Cofig.js :: deleteFile() :: error", err);
+            console.error("Appwrite/Image.js :: deleteFile() :: error", err);
         }
         return false;
     }
@@ -50,7 +50,7 @@ export class ImageService{
             });
         }
         catch(err) {
-            console.error("Appwrite/Cofig.js :: updateFile() :: error", err);
+            console.error("Appwrite/Image.js :: updateFile() :: error", err);
         }
         return false;
     }

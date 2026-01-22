@@ -18,6 +18,6 @@ Thanks a lot to my mentor [Sir. Hitesh Choudhary](https://github.com/hiteshchoud
 ## Learnings:
 1. Appwrite services and SDK for backend functionalities like authentication, database management, and file (image) storage.
 2. React Router DOM for routing and navigation in React applications by using `<Link/>` component and `useNavigate()` hook.
-3. React Hook Form for form handling and validation in React by using `register`, `handleSubmit` and `Controller` components/hooks. 
+3. React Hook Form for form handling and validation in React by using `register`, `handleSubmit`, `Controller`, `watch()`, `setValue()`, `control`, and `getValues()` components/hooks. 
 4. Redux Toolkit for state management in React applications by using `configureStore()`, `createSlice()`, `reducers()` and `react-redux` hooks like `useSelector()` and `useDispatch()`.
 5. TinyMCE Rich Text Editor integration in React using "tinymce-react" package.

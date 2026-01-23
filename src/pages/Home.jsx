@@ -18,7 +18,7 @@ export default function Home() {
             <div className='w-full py-8 mt-8 text-center'>
                 <Container>
                     <div className='flex flex-wrap'>
-                        <h1 className='text-2xl font-bold hover:text-gray-500'>
+                        <h1 className='text-2xl font-bold hover:text-gray-500 w-full'>
                             Login to read posts
                         </h1>
                     </div>

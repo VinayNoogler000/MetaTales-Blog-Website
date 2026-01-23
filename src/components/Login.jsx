@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useNavigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { login as storeLogin } from "../store/authSlice";
 import {Button, Input, Select} from "./index";
 import { useDispatch } from "react-redux";

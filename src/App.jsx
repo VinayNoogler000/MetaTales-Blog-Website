@@ -29,7 +29,7 @@ function App() {
       <div className='w-full text-black'>
         <Header/>
         <main>
-          TODO: <Outlet/>
+          <Outlet/>
         </main>
         <Footer/>
       </div>

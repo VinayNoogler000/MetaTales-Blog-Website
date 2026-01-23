@@ -3,7 +3,7 @@
 import envConfig from "../envConfig";
 import { Client, ID, Query, TablesDB } from "appwrite";
 
-export class PostService{
+export class PostService {
     client = new Client();
     tablesDB;
 
@@ -14,30 +14,30 @@ export class PostService{
         this.tablesDB = new TablesDB(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userId}) {
+    async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
             return await this.tablesDB.createRow({
                 databaseId: envConfig.appwriteDBId,
                 tableId: envConfig.appwriteCollectionId,
                 rowId: slug,
-                data: {title, content, featuredImage, status, userId}
+                data: { title, content, featuredImage, status, userId }
             });
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/post.js :: createPost() :: error", err);
         }
     }
 
-    async updatePost(slug, {title, content, featuredImage, status}) {
+    async updatePost(slug, { title, content, featuredImage, status }) {
         try {
             return await this.tablesDB.updateRow({
                 databaseId: envConfig.appwriteDBId,
                 tableId: appwriteCollectionId,
                 rowId: slug,
-                data: {title, content, featuredImage, status}
+                data: { title, content, featuredImage, status }
             });
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/post.js :: updatePost() :: error", err);
         }
     }
@@ -51,7 +51,7 @@ export class PostService{
             });
             return true;
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/post.js :: deletePost() :: error", err);
             return false;
         }
@@ -65,13 +65,13 @@ export class PostService{
                 rowId: slug
             })
         }
-        catch(err) {
+        catch (err) {
             console.error("Appwrite/post.js :: getPost() :: error", err);
         }
         return false;
     }
 
-    async listPosts(queries = [Query.equal("status", "active")]) {
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
             return await this.tablesDB.listRows({
                 databaseId: envConfig.databaseId,
@@ -79,8 +79,8 @@ export class PostService{
                 queries: queries
             });
         }
-        catch(err) {
-            console.error("Appwrite/post.js :: listPosts() :: error", err);
+        catch (err) {
+            console.error("Appwrite/post.js :: getPosts() :: error", err);
         }
         return false;
     }

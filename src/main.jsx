@@ -27,19 +27,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-posts",
-        element: (<AuthLayout authenticated={true}> <AllPosts/> </AuthLayout>)
+        element: (<AuthLayout> <AllPosts/> </AuthLayout>)
       },
       {
         path: "/add-post",
-        element: (<AuthLayout authenticated={true}> <AddPost/> </AuthLayout>)
+        element: (<AuthLayout> <AddPost/> </AuthLayout>)
       },
       {
         path: "/edit-post/:slug",
-        element: (<AuthLayout authenticated={true}> <EditPost/> </AuthLayout>)
+        element: (<AuthLayout> <EditPost/> </AuthLayout>)
       },
       {
         path: "/post/:slug",
-        element: (<AuthLayout authenticated={true}> <Post/> </AuthLayout>)
+        element: (<AuthLayout> <Post/> </AuthLayout>)
       }
     ]
   }

@@ -74,7 +74,7 @@ export class PostService {
     async getPosts(queries = [Query.equal("status", "active")]) {
         try {
             return await this.tablesDB.listRows({
-                databaseId: envConfig.databaseId,
+                databaseId: envConfig.appwriteDBId,
                 tableId: envConfig.appwriteCollectionId,
                 queries: queries
             });

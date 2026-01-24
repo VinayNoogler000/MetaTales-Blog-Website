@@ -1,5 +1,3 @@
-import React from "react";
-import postService from "../appwrite/post";
 import imageService from "../appwrite/image";
 import {Link} from "react-router-dom";
 

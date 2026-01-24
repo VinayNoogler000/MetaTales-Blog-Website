@@ -19,7 +19,7 @@ export default function Home() {
                 <Container>
                     <div className='flex flex-wrap'>
                         <h1 className='text-2xl font-bold hover:text-gray-500 w-full'>
-                            Login to read posts
+                            Login to Create/Read posts
                         </h1>
                     </div>
                 </Container>

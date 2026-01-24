@@ -32,7 +32,7 @@ export class PostService {
         try {
             return await this.tablesDB.updateRow({
                 databaseId: envConfig.appwriteDBId,
-                tableId: appwriteCollectionId,
+                tableId: envConfig.appwriteCollectionId,
                 rowId: slug,
                 data: { title, content, featuredImage, status }
             });

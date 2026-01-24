@@ -1,4 +1,4 @@
-import React, {useCallaback} from "react";
+import React, {useCallback} from "react";
 import { useForm } from "react-hook-form";
 import {Button, Input, Select, RTE} from "../index";
 import {postService, imageService} from "../../appwrite";
@@ -37,7 +37,7 @@ export default function PostForm({post}) {
         }
     }
 
-    const slugTransform = useCallaback((value) => {
+    const slugTransform = useCallback((value) => {
         if (value && typeof value === "string") return value.trim().toLowerCase().replace(/\s/g, '-');
         return '';
     }, []);

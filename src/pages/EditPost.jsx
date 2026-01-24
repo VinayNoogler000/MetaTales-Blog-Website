@@ -9,8 +9,6 @@ export default function EditPost() {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        console.log("Hello World");
-        
         if (slug) {
             postService.getPost(slug).then(post => {
                 if (post) {

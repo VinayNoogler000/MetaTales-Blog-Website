@@ -19,9 +19,9 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
-        const file = data.image[0] ? await imageService.uploadFile(data.image[0]) : null;
-
         if (post) {
+            const file = data.image[0] ? await imageService.uploadFile(data.image[0]) : null;
+
             if (file) {
                 try {
                     await imageService.deleteFile(post.featuredImage);
@@ -40,6 +40,14 @@ export default function PostForm({ post }) {
                 navigate(`/post/${dbPost.$id}`);
             }
         } else { // when post doesn't exist, create new post
+            let file;
+            try {
+                file = await imageService.uploadFile(data.image[0]);
+            }
+            catch(err){
+                console.error("Error uploading image:", err);
+            } 
+
             if (file) {
                 const dbPost = await postService.createPost({ ...data, featuredImage: file.$id, userId: userData.$id });
 
@@ -97,7 +105,7 @@ export default function PostForm({ post }) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={imageService.getImagePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
                         />

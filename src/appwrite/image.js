@@ -56,7 +56,7 @@ export class ImageService{
     }
 
     getImagePreview(fileId) {
-        return this.bucket.getFilePreview({
+        return this.bucket.getFileView({
             bucketId: envConfig.appwriteBucketId,
             fileId: fileId
         });

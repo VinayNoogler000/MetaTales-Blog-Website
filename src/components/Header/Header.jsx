@@ -1,11 +1,23 @@
+import React from "react";
 import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
+    const [viewportWidth, setViewportWidth] = React.useState(window.innerWidth);
     const authStatus = useSelector(state => state.auth?.status ?? false);
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setViewportWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const navItems = [
         {
@@ -39,18 +51,18 @@ function Header() {
         <header className="py-3 shadow bg-gray-500">
             <Container>
                 <nav className="flex">
-                    <div className="mr-4">
+                    <div className="mr-1 xs:mr-2 sm:mr-4 grid place-items-center">
                         <Link to="/">
-                            <Logo width="70px" />
+                            <Logo width={viewportWidth <= 565 ? "0px" : viewportWidth <= 660 ? "80px" : "120px"} position={"header"}/>
                         </Link>
                     </div>
 
                     <ul className="flex ml-auto">
                         {navItems.map((item) => (
                             item.active && (
-                                <li key={item.name}>
+                                <li key={item.name} className="grid place-items-center">
                                     <button
-                                        className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                                        className="inline-block px-2 xs:px-4 sm:px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
                                         onClick={() => navigate(item.slug)}>
                                         {item.name}
                                     </button>

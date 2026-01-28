@@ -1,7 +1,20 @@
+import React from "react"
 import { Link } from 'react-router-dom'
 import { Logo } from "../index"
 
 export default function Footer() {
+    const [viewportWidth, setViewportWidth] = React.useState(window.innerWidth);
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setViewportWidth(window.innerWidth);
+        };
+        
+        window.addEventListener('resize', handleResize); 
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
             <div className="relative z-10 mx-auto max-w-7xl px-4">
@@ -9,11 +22,11 @@ export default function Footer() {
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
                             <div className="mb-4 inline-flex items-center">
-                                <Logo width="100px" />
+                                <Logo width={viewportWidth <= 450 ? "80px" : "100px"} position={"footer"}/>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600">
-                                    &copy; Copyright 2023. All Rights Reserved by DevUI.
+                                    &copy; Copyright 2025. All Rights Reserved by <a href="https://github.com/VinayNoogler000" target="_blank" className='underline'>Vinay Tambey</a>.
                                 </p>
                             </div>
                         </div>

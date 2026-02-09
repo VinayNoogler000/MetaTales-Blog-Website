@@ -3,14 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const postSlice = createSlice({
     name: "post",
     initialState: {
-        posts: [{
-            title: "example-title",
-            slug: "example-slug",
-            content: "example-content",
-            featuredImage: "example-image-url",
-            status: "example-status-active or inactive",
-            userId: "example-user-id"
-        }],
+        posts: [
+            // {
+            //     title: "example-title",
+            //     slug: "example-slug",
+            //     content: "example-content",
+            //     featuredImage: "example-image-url",
+            //     status: "example-status-active or inactive",
+            //     userId: "example-user-id"
+            // }
+        ],
     },
     reducers: {
         getPost(state, action) {

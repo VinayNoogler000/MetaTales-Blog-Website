@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react";
 
 const postSlice = createSlice({
     name: "post",
@@ -15,6 +16,25 @@ const postSlice = createSlice({
         ],
     },
     reducers: {
+        getAllPosts(state, action) {
+            const query = action.payload.query;
+
+            if (!query) { // No Queries for filtering out Posts, hence returns all posts.
+                return state.posts;
+            }
+            else { // Queries exist for filtering out posts, so send filtered posts based on queries
+                let filteredPosts = [...state.posts];
+                const queryKeys = Object.keys(query);
+
+                if (queryKeys.length > 0) {
+                    for (const qKey of queryKeys) {
+                        filteredPosts = filteredPosts.filter((p) => (Object.hasOwn(p, qKey) && p[qKey] === query[qKey]))
+                    }
+                }
+                return filteredPosts; // even if the queries length is 0, then all the posts will be returned as "filteredPosts".
+            }
+        },
+        
         getPost(state, action) {
             const slug = action.payload.slug;
             if (slug) return state.posts.find((p) => p.slug === slug);

@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from ".";
 import { postService, imageService } from "../appwrite";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost, updatePost } from "../store/postSlice";
 
 export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
@@ -17,6 +18,7 @@ export default function PostForm({ post }) {
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
+    const dispatch = useDispatch();
 
     const submit = async (data) => {
         if (post) {
@@ -31,15 +33,29 @@ export default function PostForm({ post }) {
                 }
             }
 
-            const dbPost = await postService.updatePost(post.$id, {
+            // Update Post in the Global State (Redux Store)
+            const action = dispatch(updatePost({
+                post: {
+                    $id: data.slug,
+                    title: data.title,
+                    content: data.content,
+                    featuredImage: file ? file.$id : post.featuredImage,
+                    status: data.status,
+                    userId: userData.$id
+                }
+            }));
+            const reduxEditedPost = action.payload.post;
+
+            // Update Post in the Appwrite-DB
+            const dbEditedPostPost = await postService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined,
+                featuredImage: file ? file.$id : post.featuredImage,
             });
 
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else { // when post doesn't exist, create new post
+            const editedPost = reduxEditedPost || dbEditedPostPost;
+            if (editedPost) navigate(`/post/${editedPost.$id}`);
+        } 
+        else { // when post doesn't exist, create new post
             let file;
             try {
                 file = await imageService.uploadFile(data.image[0]);
@@ -49,11 +65,23 @@ export default function PostForm({ post }) {
             } 
 
             if (file) {
-                const dbPost = await postService.createPost({ ...data, featuredImage: file.$id, userId: userData.$id });
+                // Adding Post to Global State (Redux Store)
+                const reduxNewPost = dispatch(addPost({
+                    post: {
+                        $id: data.slug,
+                        title: data.title,
+                        content: data.content,
+                        featuredImage: file.$id,
+                        status: data.status,
+                        userId: userData.$id
+                    }
+                })).payload.post;
 
-                if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
-                }
+                // Adding Post to Appwrite-DB
+                const dbNewPost = await postService.createPost({ ...data, featuredImage: file.$id, userId: userData.$id });
+
+                const newPost = reduxNewPost || dbNewPost;
+                if (newPost) navigate(`/post/${newPost.$id}`);
             }
         }
     };

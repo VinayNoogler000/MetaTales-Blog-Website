@@ -61,21 +61,27 @@ const postSlice = createSlice({
         },
 
         updatePost(state, action) {
-            const post = action.payload.post;
+            const newPost = action.payload.post;
 
-            if (post && post.slug) {
+            if (newPost?.$id) {
+                let isUpdated = false;
                 state.posts.forEach(p => {
-                    if (p.slug === post.slug) {
-                        p = {...post}
+                    if (p.$id === newPost.$id) {
+                        p = newPost;
+                        isUpdated = true;
                         return;
                     }
                 });
-                console.log(`Post with Slug: ${post.slug} and Title: ${post.title} is SUCCESSFULLY UPDATED in Global State (Redux Store)`);
-                return true;
+
+                if(isUpdated) { // Post found and Updated
+                    console.log(`Post with Slug: ${newPost.$id} and Title: ${newPost.title} is SUCCESSFULLY UPDATED in Global State (Redux Store)`);
+                }
+                else { //Cannot Find Post, so add it as a new Post
+                    addPostLogic(state, newPost);
+                }
             }
             else {
                 console.error("src/store/postSlice.js/updatePost() :: Invalid/Missing Post details/parameters ");
-                return false;
             }
         },
 

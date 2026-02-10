@@ -1,22 +1,28 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { getAllPosts } from '../store/postSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPosts } from "../store/postSlice";
 import { postService } from '../appwrite'
 import { Container, PostCard } from '../components'
 
 function AllPosts() {
     const [posts, setPosts] = React.useState([]);
+    const allStoredPosts = useSelector((state) => state.post.posts);
     const dispatch = useDispatch();
+    
+    const activePosts = React.useMemo(() => {
+        return allStoredPosts?.filter(p => p.status === "active") || [];
+    }, [allStoredPosts]);
 
-    React.useEffect(() => {
-        const storedPosts = dispatch(getAllPosts( {query: {status: "active"}} ));
-        if (storedPosts && storedPosts.length > 0) {
-            setPosts(storedPosts);
+    React.useEffect(() => {        
+        if (posts.length === 0 && activePosts?.length > 0) {
+            setPosts(activePosts);
+            console.log("Posts loaded from Redux Store:", activePosts);
         }
-        else {
+        else if (posts.length === 0 && activePosts?.length === 0) {
             postService.getPosts().then(posts => {
                 if (posts) {
                     setPosts(posts.rows);
+                    console.log("Posts loaded from AppwriteDB: ", posts.rows);
                     dispatch(addPosts({posts: posts.rows}));
                 }
             })

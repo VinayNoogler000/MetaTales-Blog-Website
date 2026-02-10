@@ -84,7 +84,7 @@ export default function PostForm({ post }) {
                     {...register("title", { required: true })}
                 />
                 <Input
-                    label="Slug :"
+                    label="Slug : (Max 36 Characters)"
                     placeholder="Slug"
                     className="mb-4"
                     {...register("slug", { required: true })}

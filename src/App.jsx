@@ -20,7 +20,7 @@ function App() {
           dispatch(logout());
         }
       })
-      .catch(err => console.error("Unable to Get Curr User Status"))
+      .catch(err => console.error("Unable to Get Curr User Status", err))
       .finally(() => setLoading(false));
   }, []);
 

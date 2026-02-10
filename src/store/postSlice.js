@@ -46,6 +46,7 @@ const postSlice = createSlice({
 
         addPost(state, action) {
             const { title, slug, content, featuredImage, status, userId } = action.payload.post;
+
             if (title && slug && content && featuredImage && status && userId) {
                 state.posts.push(action.payload.post);
                 console.log(`Post with Slug: ${slug} and Title: ${title} is SUCCESSFULLY ADDED to Global State (Redux Store)`);
@@ -53,6 +54,28 @@ const postSlice = createSlice({
             }
             else {
                 console.error("src/store/postSlice.js/addPost() :: Invalid/Missing Post details/parameters ");
+                return false;
+            }
+        },
+
+        addPosts(action) {
+            const posts = action.payload.posts;
+
+            if (posts && posts.length > 0){
+                let postAddStatus = true;
+
+                for (const post of posts) {
+                    if (!(this.addPost(post))) { // A Post wasn't stored due to invalid/missing Post details
+                        postAddStatus = false;
+                    }
+                }
+
+                if (postAddStatus) console.log("All Posts added successfully added and stored locally!");
+                else console.warn("NOT All Posts were added and stored successfully!");
+                return true;
+            }
+            else {
+                console.error("src/store/postSlice.js/addPosts() :: NO POSTS EXISTS in the Argument. Please pass at least one post");
                 return false;
             }
         },
@@ -98,5 +121,5 @@ const postSlice = createSlice({
     }
 })
 
-export const {getPost, addPost, updatePost, deletePost} = postSlice.actions;
+export const {getAllPosts, getPost, addPost, addPosts, updatePost, deletePost} = postSlice.actions;
 export default postSlice.reducer;

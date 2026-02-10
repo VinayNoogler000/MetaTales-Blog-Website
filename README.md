@@ -18,3 +18,4 @@ Thanks a lot to my mentor [Sir. Hitesh Choudhary](https://github.com/hiteshchoud
 3. React Hook Form for form handling and validation in React by using `register`, `handleSubmit`, `Controller`, `watch()`, `setValue()`, `control`, and `getValues()` components/hooks. 
 4. Redux Toolkit for state management in React applications by using `configureStore()`, `createSlice()`, `reducers()` and `react-redux` hooks like `useSelector()` and `useDispatch()`.
 5. TinyMCE Rich Text Editor integration in React using "tinymce-react" package.
+6. In RTK, there's a `current()` method which allows us to take a snapshot of the Proxy and turns it back into a plain JavaScript array/object. This wrapping of state into a Proxy (using `Immer`) is what enables the "mutating" syntax in reducers, while still maintaining immutability under the hood.

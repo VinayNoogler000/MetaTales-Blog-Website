@@ -3,7 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { imageService, postService } from '../appwrite';
 import { Button, Container } from '../components';
 import parse from "html-react-parser";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPost } from '../store/postSlice';
 
 export default function Post() {
     const [post, setPost] = React.useState(null);
@@ -11,15 +12,28 @@ export default function Post() {
     const navigate = useNavigate();
 
     const userData = useSelector((state) => state.auth.userData);
+    const storedPosts = useSelector(state => state.post.posts);
 
     const isAuthor = post && userData && (post.userId === userData.$id);
 
     useEffect(() => {
         if (slug) {
-            postService.getPost(slug).then(post => {
-                if (post) setPost(post);
-                else navigate('/');
-            });
+            const postFound = storedPosts?.find(p => p.$id === slug);
+
+            if (postFound) { // post exists in the Redux Store
+                setPost(postFound);
+                console.log("Post Fetched from Redux Store");
+            }
+            else { // means, Post not exists in Redux-Store then fetch post from Appwrite-DB
+                postService.getPost(slug).then(p => {
+                    if (p) {
+                        setPost(p);
+                        addPost(p);
+                        console.log("Post Fetched from Appwrite-DB");
+                    }
+                    else navigate('/');
+                });
+            }
         }
     }, [slug, navigate]);
 

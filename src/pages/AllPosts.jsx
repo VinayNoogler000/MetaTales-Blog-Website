@@ -9,17 +9,17 @@ function AllPosts() {
     const allStoredPosts = useSelector((state) => state.post.posts);
     const dispatch = useDispatch();
     
-    const activePosts = React.useMemo(() => {
-        return allStoredPosts?.filter(p => p.status === "active") || [];
-    }, [allStoredPosts]);
+    // const activePosts = React.useMemo(() => {
+    //     return allStoredPosts?.filter(p => p.status === "active") || [];
+    // }, [allStoredPosts]);
 
     React.useEffect(() => {        
-        if (posts.length === 0 && activePosts?.length > 0) {
-            setPosts(activePosts);
-            console.log("Posts loaded from Redux Store:", activePosts);
+        if (posts.length === 0 && allStoredPosts?.length > 0) {
+            setPosts(allStoredPosts);
+            console.log("Posts loaded from Redux Store:", allStoredPosts);
         }
-        else if (posts.length === 0 && activePosts?.length === 0) {
-            postService.getPosts().then(posts => {
+        else if (posts.length === 0 && allStoredPosts?.length === 0) {
+            postService.getPosts([]).then(posts => {
                 if (posts) {
                     setPosts(posts.rows);
                     console.log("Posts loaded from AppwriteDB: ", posts.rows);

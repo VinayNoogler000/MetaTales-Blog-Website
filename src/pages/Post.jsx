@@ -4,7 +4,7 @@ import { imageService, postService } from '../appwrite';
 import { Button, Container } from '../components';
 import parse from "html-react-parser";
 import { useSelector, useDispatch } from 'react-redux';
-import { addPost } from '../store/postSlice';
+import { addPost, deletePost} from '../store/postSlice';
 
 export default function Post() {
     const [post, setPost] = React.useState(null);
@@ -13,6 +13,7 @@ export default function Post() {
 
     const userData = useSelector((state) => state.auth.userData);
     const storedPosts = useSelector(state => state.post.posts);
+    const dispatch = useDispatch();
 
     const isAuthor = post && userData && (post.userId === userData.$id);
 
@@ -28,7 +29,7 @@ export default function Post() {
                 postService.getPost(slug).then(p => {
                     if (p) {
                         setPost(p);
-                        addPost(p);
+                        dispatch(addPost(p));
                         console.log("Post Fetched from Appwrite-DB");
                     }
                     else navigate('/');

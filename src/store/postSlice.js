@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const addPostLogic = (state, post) => {
+    console.log("Post inside addPostLogic(): ", post);
     const { title, $id, content, featuredImage, status, userId } = post;
 
     if (post && (title && $id && content && featuredImage && status && userId)) {
@@ -87,21 +88,13 @@ const postSlice = createSlice({
 
         deletePost(state, action) {
             const slug = action.payload.slug
+
             if (slug) {
-                let deletedPost = undefined;
-                state.posts = state.posts.filter(p => {
-                    if (p.slug === slug) {
-                        deletedPost = {...p};
-                        return false;
-                    }
-                    return true;
-                });
-                console.log(`Post with Slug: ${deletedPost.slug} and Title: ${deletedPost.title} is SUCCESSFULLY DELETED from Global State (Redux Store)`);
-                return deletedPost;
+                state.posts = state.posts.filter(p => (p.slug !== slug));
+                console.log(`Post with Slug: ${slug} is Successfully Deleted from Global State (Redux Store)`);
             }
             else {
                 console.error("src/store/postSlice.js/deletePost() :: Invalid/Missing Post Slug");
-                return false;
             }
         }
     }

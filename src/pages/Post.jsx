@@ -4,7 +4,7 @@ import { imageService, postService } from '../appwrite';
 import { Button, Container } from '../components';
 import parse from "html-react-parser";
 import { useSelector, useDispatch } from 'react-redux';
-import { addPost, deletePost} from '../store/postSlice';
+import { addPost, deletePost as delPostFromStore} from '../store/postSlice';
 
 export default function Post() {
     const [post, setPost] = React.useState(null);
@@ -28,6 +28,7 @@ export default function Post() {
             else { // means, Post not exists in Redux-Store then fetch post from Appwrite-DB
                 postService.getPost(slug).then(p => {
                     if (p) {
+                        console.log("post:", post);
                         setPost(p);
                         dispatch(addPost(p));
                         console.log("Post Fetched from Appwrite-DB");
@@ -39,12 +40,17 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
+        dispatch(delPostFromStore({slug: post.$id}));
+        
         postService.deletePost(post.$id).then((status) => {
             if (status) {
+                console.log(`Post with ID:${post.$id} is deleted from Appwrite-DB`);
                 imageService.deleteFile(post.featuredImage);
-                navigate('/');
+                console.log(`Image with ID: ${post.featuredImage} is deleted from Appwrite-Bucket`)
             }
         });
+
+        navigate('/');
     }
 
     return post ? (

@@ -1,6 +1,6 @@
 # METATALES
 
-MetaTales is a blog website where users can see and read blogs of other users, & create and edit their own blogs. It also has signup and login functionality which is compulsory for user who wants to use this platform.
+MetaTales is a blog website where users can see and read blogs of other users, & create and edit their own blogs. It also has signup and login functionality (via email & password) which is compulsory for user who wants to use this platform.
 
 This website is my first ever Mega Project using React, which is being built as a Software-Solution, that actually solves a problem.
 

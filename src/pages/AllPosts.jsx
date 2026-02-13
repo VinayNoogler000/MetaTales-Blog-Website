@@ -1,19 +1,35 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { addPosts } from "../store/postSlice";
-import { postService } from '../appwrite'
-import { Container, PostCard } from '../components'
+import { postService } from '../appwrite';
+import { Container, PostCard } from '../components';
+import { toast, Slide } from 'react-toastify';
 
 function AllPosts() {
     const [posts, setPosts] = React.useState([]);
     const allStoredPosts = useSelector((state) => state.post.posts);
     const dispatch = useDispatch();
-    
-    // const activePosts = React.useMemo(() => {
-    //     return allStoredPosts?.filter(p => p.status === "active") || [];
-    // }, [allStoredPosts]);
+    const toastDisplayed = useRef(false);
 
-    React.useEffect(() => {        
+    React.useEffect(() => {     
+        if (!toastDisplayed.current) {
+            toast.info("If All the Posts (Active + Inactive) are Not Rendered, then kindly Refresh the page, once!", 
+            {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Slide,
+                delay: 1500
+            });
+            
+            toastDisplayed.current = true;
+        }
+        
         if (posts.length === 0 && allStoredPosts?.length > 0) {
             setPosts(allStoredPosts);
             console.log("Posts loaded from Redux Store:", allStoredPosts);

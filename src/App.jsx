@@ -5,6 +5,7 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer } from './components';
 import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ function App() {
         </main>
         <Footer/>
       </div>
+      <ToastContainer stacked/>
     </div >
   )
 }

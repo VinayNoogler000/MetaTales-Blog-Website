@@ -5,6 +5,7 @@ import { Button, Container } from '../components';
 import parse from "html-react-parser";
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost, deletePost as delPostFromStore} from '../store/postSlice';
+import { toast, Slide } from 'react-toastify';
 
 export default function Post() {
     const [post, setPost] = React.useState(null);
@@ -18,6 +19,20 @@ export default function Post() {
     const isAuthor = post && userData && (post.userId === userData.$id);
 
     useEffect(() => {
+        toast.info("If the Post details or Edit/Delete Buttons are Missing, then Please Refresh the Page Once!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+            toastId: "post-view-page-toast",
+            delay: 1500
+        });
+        
         if (slug) {
             const postFound = storedPosts?.find(p => p.$id === slug);
 

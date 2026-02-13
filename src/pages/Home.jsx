@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPosts } from "../store/postSlice";
 import { postService } from '../appwrite';
 import { Container, PostCard } from '../components';
+import { toast, Slide } from 'react-toastify';
 
 export default function Home() {
     const [posts, setPosts] = React.useState([]);
@@ -42,18 +43,33 @@ export default function Home() {
             </div>
         );
     }
+    else {
+        toast.info("If All the Active Posts are Not Rendered, then kindly Refresh the page, once!", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+            toastId: "home-page-toast",
+            delay: 1500
+        });
 
-    return (
-        <div className='w-full py-8'>
-            <Container>
-                <div className='flex flex-wrap'>
-                    {posts && posts.map(post => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post} />
-                        </div>
-                    ))}
-                </div>
-            </Container>
-        </div>
-    )
+        return (
+            <div className='w-full py-8'>
+                <Container>
+                    <div className='flex flex-wrap'>
+                        {posts && posts.map(post => (
+                            <div key={post.$id} className='p-2 w-1/4'>
+                                <PostCard {...post} />
+                            </div>
+                        ))}
+                    </div>
+                </Container>
+            </div>
+        )
+    }
 }

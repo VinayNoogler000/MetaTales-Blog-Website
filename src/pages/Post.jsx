@@ -71,7 +71,7 @@ export default function Post() {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+                <div className="max-w-xl flex justify-center mx-auto mb-4 relative border rounded-xl p-2">
                     <img
                         src={imageService.getImagePreview(post.featuredImage)}
                         alt={post.title}
